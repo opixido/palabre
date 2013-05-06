@@ -94,9 +94,10 @@ RECEIVED : <clients room="XXX" nb="5" > <client name="Toto" /> <client name="Tit
 SENT : <msg toclient="Nickname">Hello Nickname !</msg>
 ```
 
-### (Param "r" or "toroom" is delivered to entire room)
-### (Param "b" or "back" tells the server to send the same message back to the send)
-### (Param "broadcast" sends to everyone)
+### Rooms params :
+* Param "r" or "toroom" is delivered to entire room
+* Param "b" or "back" tells the server to send the same message back to the send
+* Param "broadcast" sends to everyone
 
 ```html
 SENT : <m r="XXX" >Hello everyone i'm very happy to join you all!</m>
@@ -110,4 +111,4 @@ SENT : <m r="XXX" >Have to go ! Bye !</m>
 RECEIVED :  <leave r="XXX" />
 ```
 
-### Then the others receives the updated client list ...
+Then the others receives the updated client list ...
