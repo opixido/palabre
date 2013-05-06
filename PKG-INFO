@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: Palabre
+Version: 0.4_alpha1
+Summary: XML Socket Python Server
+Home-page: http://www.palabre.free.fr/
+Author: Célio Conort
+Author-email: gavrochelegnou@users.sourceforge.net
+License: GPL, see COPYING for details
+Description: Flash XML Multiuser Socket Server :-)
+Platform: Linux

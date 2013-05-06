@@ -1,0 +1,1 @@
+c:\python24\python.exe setup_windows.py py2exe 
