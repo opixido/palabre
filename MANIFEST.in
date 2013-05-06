@@ -1,5 +1,0 @@
-include AUTHORS
-include COPYING
-recursive-include etc *
-recursive-include scripts *
-recursive-include doc *
