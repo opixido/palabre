@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Palabre : A realtime Flash XML socket server written in Python" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Palabre</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/opixido/palabre">View on GitHub</a>
+
+          <h1 id="project_title">Palabre</h1>
+          <h2 id="project_tagline">A realtime Flash XML socket server written in Python</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/opixido/palabre/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/opixido/palabre/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Palabre </h1>
+
+<p>Palabre is a server written in pyton that opens a TCP port and allows you to connect in realtime from multiple clients and exchange informations.</p>
+
+<p>Features : </p>
+
+<ul>
+<li>XML based communication</li>
+<li>IRC style logic</li>
+<li>Connect</li>
+<li>Set Nickname</li>
+<li>Private message between two clients</li>
+<li>Creation of rooms</li>
+<li>Plugins for ... whatever you want</li>
+<li>...</li>
+</ul><p>You have two options, just test palabre ... or install it.</p>
+
+<h2>Testing Palabre</h2>
+
+<p>To test just run QuickStarter.py</p>
+
+<pre lang="shell"><code>python QuickStarter.py
+</code></pre>
+
+<p>or </p>
+
+<pre lang="shell"><code>./QuickStarter.py
+</code></pre>
+
+<h2>Installing Palabre</h2>
+
+<p>To install it cleanly :</p>
+
+<div class="highlight"><pre>python setup.py install
+</pre></div>
+
+<p>Then edit <code>/etc/palabre.conf</code></p>
+
+<p>and start it </p>
+
+<p><code>palabre start</code></p>
+
+<p>to stop it </p>
+
+<p><code>palabre stop</code></p>
+
+<p>By default, log file is  <code>/var/log/palabre.log</code>
+And scripts in <code>/usr/lib/python2.[VERSION]/site-packages/palabre/</code></p>
+
+<h2>XML example :</h2>
+
+<p>(By default if you try to connect with telnet, end of line is 'null' character for flash  not \n)</p>
+
+<h3>Connection with nickname</h3>
+
+<div class="highlight"><pre>SENT : <span class="nt">&lt;connect</span> <span class="na">nickname=</span><span class="s">"KoolBoy"</span>   <span class="nt">/&gt;</span>
+</pre></div>
+
+<h3>Answer from the server (nickname in use or non acceptable)</h3>
+
+<div class="highlight"><pre>RECEIVED : <span class="nt">&lt;connect</span> <span class="na">isok=</span><span class="s">"1"</span>  <span class="nt">/&gt;</span>
+</pre></div>
+
+<h3>If you want to check the connection</h3>
+
+<div class="highlight"><pre>SENT : <span class="nt">&lt;ping</span>  <span class="nt">/&gt;</span>
+</pre></div>
+
+<h3>The server should answer :</h3>
+
+<div class="highlight"><pre>RECEIVED : <span class="nt">&lt;pong</span>  <span class="nt">/&gt;</span>
+</pre></div>
+
+<h3>Asking for room list</h3>
+
+<div class="highlight"><pre>SENT : <span class="nt">&lt;getrooms</span>  <span class="nt">/&gt;</span>
+</pre></div>
+
+<h3>Rooms list (also supports sub-rooms, operator mode for some clients in rooms, params in rooms (title, locked, ...)</h3>
+
+<div class="highlight"><pre>RECEIVED : <span class="nt">&lt;rooms</span> <span class="na">nb=</span><span class="s">"2"</span> <span class="nt">&gt;&lt;room</span> <span class="na">name=</span><span class="s">"XXX"</span> <span class="na">clients=</span><span class="s">"5"</span>   <span class="nt">/&gt;&lt;room</span> <span class="na">clients=</span><span class="s">"20"</span> <span class="na">name=</span><span class="s">"YYY"</span>  <span class="nt">/&gt;&lt;/rooms&gt;</span>
+</pre></div>
+
+<h3>Asking to join Room XXX (if room does not exists it is created then)</h3>
+
+<div class="highlight"><pre>SENT : <span class="nt">&lt;join</span> <span class="na">room=</span><span class="s">"XXX"</span>  <span class="nt">/&gt;</span>
+</pre></div>
+
+<h3>Room Joined</h3>
+
+<div class="highlight"><pre>RECEIVED : <span class="nt">&lt;joined</span> <span class="na">room=</span><span class="s">"XXX"</span>  <span class="nt">/&gt;</span>
+</pre></div>
+
+<h3>And the list of clients for this room</h3>
+
+<div class="highlight"><pre>RECEIVED : <span class="nt">&lt;clients</span> <span class="na">room=</span><span class="s">"XXX"</span> <span class="na">nb=</span><span class="s">"5"</span> <span class="nt">&gt;</span> <span class="nt">&lt;client</span> <span class="na">name=</span><span class="s">"Toto"</span> <span class="nt">/&gt;</span> <span class="nt">&lt;client</span> <span class="na">name=</span><span class="s">"Titi"</span> <span class="nt">/&gt;</span> [...]  <span class="nt">&lt;/clients&gt;</span>
+</pre></div>
+
+<h3>Sending a message "msg" or "m"</h3>
+
+<h3>(Param "c" or "toclient" -&gt; the message is only delivered to one client)</h3>
+
+<div class="highlight"><pre>SENT : <span class="nt">&lt;msg</span> <span class="na">toclient=</span><span class="s">"Nickname"</span><span class="nt">&gt;</span>Hello Nickname !<span class="nt">&lt;/msg&gt;</span>
+</pre></div>
+
+<h3>Rooms params :</h3>
+
+<ul>
+<li>Param "r" or "toroom" is delivered to entire room</li>
+<li>Param "b" or "back" tells the server to send the same message back to the send</li>
+<li>Param "broadcast" sends to everyone</li>
+</ul><div class="highlight"><pre>SENT : <span class="nt">&lt;m</span> <span class="na">r=</span><span class="s">"XXX"</span> <span class="nt">&gt;</span>Hello everyone i'm very happy to join you all!<span class="nt">&lt;/m&gt;</span>
+
+RECEIVED : <span class="nt">&lt;m</span> <span class="na">f=</span><span class="s">"Toto"</span> <span class="na">r=</span><span class="s">"XXX"</span><span class="nt">&gt;</span>Hello KoolBoy glad to meet you!<span class="nt">&lt;/m&gt;</span>
+
+SENT : <span class="nt">&lt;m</span> <span class="na">f=</span><span class="s">"Titi"</span> <span class="na">r=</span><span class="s">"XXX"</span><span class="nt">&gt;</span>Hi how are you KoolBoy ?<span class="nt">&lt;/m&gt;</span>
+
+SENT : <span class="nt">&lt;m</span> <span class="na">r=</span><span class="s">"XXX"</span> <span class="nt">&gt;</span>Have to go ! Bye !<span class="nt">&lt;/m&gt;</span>
+
+RECEIVED :  <span class="nt">&lt;leave</span> <span class="na">r=</span><span class="s">"XXX"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<p>Then the others receives the updated client list ...</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Palabre maintained by <a href="https://github.com/opixido">opixido</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
